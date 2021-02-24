@@ -1,1 +1,520 @@
 
+<!DOCTYPE html>
+<!-- saved from url=(0149)file:///C:/Users/86150/Desktop/CRIC_web/CRIC_%20A%20VQA%20Dataset%20for%20Compositional%20Reasoning%20on%20Vision%20and%20Commonsense%20-%20Hexo.html -->
+<html lang="en" data-default-color-scheme="&quot;auto&quot;" data-user-color-scheme="light" class=" "><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+
+  <link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/img/favicon.png">
+  <link rel="icon" type="image/png" href="http://localhost:4000/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Difei Gao">
+  <meta name="keywords" content="">
+  <title>CRIC: A VQA Dataset for Compositional Reasoning on Vision and Commonsense - Hexo</title>
+
+  <style class="anchorjs"></style>
+  <link rel="stylesheet" href="./CRIC_files/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="./CRIC_files/github-markdown.min.css">
+  <link rel="stylesheet" href="./CRIC_files/hint.min.css">
+
+
+
+
+
+  <link rel="stylesheet" href="./CRIC_files/github-gist.min.css">
+
+
+
+
+  <link rel="stylesheet" href="./CRIC_files/jquery.fancybox.min.css">
+
+
+
+
+  <!-- 主题依赖的图标库，不要自行修改 -->
+
+  <link rel="stylesheet" href="./CRIC_files/font_1749284_ba1fz6golrf.css">
+
+
+
+  <link rel="stylesheet" href="./CRIC_files/font_1736178_kmeydafke9r.css">
+
+
+  <link rel="stylesheet" href="./CRIC_files/main.css">
+
+  <!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = { "hostname": "example.com", "root": "/", "version": "1.8.7", "typing": { "enable": true, "typeSpeed": 70, "cursorChar": "_", "loop": false }, "anchorjs": { "enable": true, "element": "h1,h2,h3,h4,h5,h6", "placement": "right", "visible": "hover", "icon": "" }, "progressbar": { "enable": true, "height_px": 3, "color": "#29d", "options": { "showSpinner": false, "trickleSpeed": 100 } }, "copy_btn": true, "image_zoom": { "enable": true }, "toc": { "enable": true, "headingSelector": "h1,h2,h3,h4,h5,h6", "collapseDepth": 0 }, "lazyload": { "enable": true, "onlypost": false }, "web_analytics": { "enable": false, "baidu": null, "google": null, "gtag": null, "tencent": { "sid": null, "cid": null }, "woyaola": null, "cnzz": null, "leancloud": { "app_id": null, "app_key": null, "server_url": null } } };
+  </script>
+  <script src="./CRIC_files/utils.js.下载"></script>
+  <script src="./CRIC_files/color-schema.js.下载"></script>
+  <meta name="generator" content="Hexo 5.4.0">
+</head>
+
+
+<body data-new-gr-c-s-check-loaded="14.997.0" data-gr-ext-installed="" class="">
+  <header style="height: 30vh;">
+    <nav id="navbar" class="navbar fixed-top navbar-expand-lg scrolling-navbar navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC_%20A%20VQA%20Dataset%20for%20Compositional%20Reasoning%20on%20Vision%20and%20Commonsense%20-%20Hexo.html#navbar">&nbsp;<strong>CRIC</strong>&nbsp;</a>
+
+        <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="animated-icon"><span></span><span></span><span></span></div>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto text-center">
+
+
+
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="#Overview">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="#Annotations">
+                <i class="iconfont icon-category-fill"></i> Download</a>
+            </li>
+
+
+
+
+
+
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" href="https://arxiv.org/pdf/1908.02962.pdf">
+                <i class="iconfont icon-tags-fill"></i>
+                Paper
+              </a>
+            </li>
+
+
+
+
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="#Citation">
+                <i class="iconfont icon-user-fill"></i>
+                Cite
+              </a>
+            </li>
+
+
+
+
+
+
+            <li class="nav-item" id="color-toggle-btn">
+              <a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon" data="dark"></i>&nbsp;</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="banner" id="banner" parallax="true" style="background: url(&quot;./img/default.png&quot;) center center / cover no-repeat; transform: translate3d(0px, 0px, 0px);">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CRIC: A VQA Dataset for Compositional Reasoning on Vision and Commonsense">CRIC: A VQA Dataset for Compositional Reasoning on Vision and Commonsense&nbsp;</span><span class="typed-cursor h2 typed-cursor--blink">_</span><span class="typed-cursor h2 typed-cursor--blink">_</span>
+
+
+
+
+
+
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+
+
+    <div class="container-fluid nopadding-x">
+      <div class="row nomargin-x">
+        <div class="d-none d-lg-block col-lg-2"></div>
+        <div class="col-lg-8 nopadding-x-md">
+          <div class="container nopadding-x-md" id="board-ctn">
+            <div class="py-5" id="board">
+              <article class="post-content mx-auto">
+                <!-- SEO header -->
+                <h1 style="display: none">CRIC: A VQA Dataset for Compositional Reasoning on Vision and Commonsense</h1>
+
+                <div class="markdown-body">
+                  <h2 id="Overview"><a href="http://localhost:4000/2021/02/24/hello-world/#Overview" class="headerlink" title="Overview"></a>Overview<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:4000/2021/02/24/hello-world/#Overview" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                  <p>
+                      <img src="./CRIC_files/overview.png" style="max-width: 50%;margin: 0rem auto;box-shadow: none;">
+                        <br>CRIC contains 
+                    compositional questions to evaluate the ability of a model on alternatively inferring on vision and
+                    commonsense. 
+                  </p>
+                  <h2 id="Statistics"><a href="http://localhost:4000/2021/02/24/hello-world/#Statistics" class="headerlink" title="Statistics"></a>Statistics<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:4000/2021/02/24/hello-world/#Statistics" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                  <ul>
+                    <li>96K images from Visual Genome</li>
+                    <li>494K automatically generated questions</li>
+                    <li>3.4K collected knowledge items from ConceptNet and Wikipedia</li>
+                    <li>Rich additional annotations, e.g., question related scene graph &amp; knowledge graph, reasoning
+                      steps, etc.</li>
+                  </ul>
+                  <h2 id="Annotations"><a href="http://localhost:4000/2021/02/24/hello-world/#Annotations" class="headerlink" title="Annotations"></a>Annotations<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:4000/2021/02/24/hello-world/#Annotations" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                  <ul>
+                    <li>
+                      <p>The <a target="_blank" rel="noopener" href="https://drive.google.com/open?id=1KaIAw9ipZhd3e-eOHd1-hx34DPXCtTgV"><strong>question
+                            files</strong></a> (train_questions.json, val_questions.json, test_v1_questions.json)
+                        consist of a list of question items where each item’s structure is as follows:</p>
+                      <div class="code-wrapper">
+                        <pre><code class="hljs python">{
+    <span class="hljs-string">"sub_graph"</span>:  <span class="hljs-comment"># a dictionary for recording the sub-graph related to generating the question</span>
+        {
+            <span class="hljs-string">"relations"</span>:       <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a list for recording the relationships (from Visual Genome annotations) used for generating the question    </span>
+            <span class="hljs-string">"attributes"</span>:      <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a list for recording the attributes (from Visual Genome annotations) used for generating the question              </span>
+            <span class="hljs-string">"knowledge_items"</span>: <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a list for recording the knowledge items (from ConceptNet) for generating the question    </span>
+        },
+    <span class="hljs-string">"image_id"</span>:      <span class="hljs-built_in">int</span>,  <span class="hljs-comment"># an image id in Visual Genome dataset</span>
+    <span class="hljs-string">"question"</span>:      <span class="hljs-built_in">str</span>,
+    <span class="hljs-string">"question_id"</span>:   <span class="hljs-built_in">str</span>,
+    <span class="hljs-string">"question_type"</span>: <span class="hljs-built_in">str</span>,
+    <span class="hljs-string">"answer"</span>:        <span class="hljs-built_in">str</span>,
+    <span class="hljs-string">"target"</span>:        <span class="hljs-built_in">list</span>, <span class="hljs-comment"># a list of object ids indicating the ground-truth results of the gruonding</span>
+    <span class="hljs-string">"program"</span>:  <span class="hljs-comment"># a list representing the reasoning steps (function layout) of answering a question.</span>
+        [{<span class="hljs-string">"function"</span>:   <span class="hljs-built_in">str</span>,   <span class="hljs-comment"># a function name, e.g. "Find"</span>
+          <span class="hljs-string">"text_input"</span>: <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a text input of function, e.g. the text input ["car", "red"] for "Find" function, indicates finding the red car</span>
+          <span class="hljs-string">"output"</span>:     <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a list of object ids indicating the ground truth output of  the current function</span>
+          },
+         ...],
+    <span class="hljs-string">"wrong_part"</span>: <span class="hljs-built_in">str</span>,  <span class="hljs-comment"># a string for explaining the reason if the answer is "no"  </span>
+}</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
+                      </div>
+                    </li>
+                    <li>
+                      <p>The <a target="_blank" rel="noopener" href="https://drive.google.com/open?id=1KaIAw9ipZhd3e-eOHd1-hx34DPXCtTgV"><strong>scene
+                            graphs</strong></a> of all images are stored in a JSON file “scene_graphs.json” (unzip
+                        “scene_graphs.zip” to get this file) containing relationship, attribute and object annotation.
+                        And the format is similar to the annotations in Visual Genome.</p>
+                    </li>
+                    <li>
+                      <p>The <a target="_blank" rel="noopener" href="https://drive.google.com/open?id=1KaIAw9ipZhd3e-eOHd1-hx34DPXCtTgV"><strong>knowledge
+                            items</strong></a> are stored in “knowledge_graph.json”, where each item is represeted in
+                        triplet format, &lt;head, relation, tail&gt;.</p>
+                    </li>
+                    <li>
+                      <p>The object features are stored in two files, <a target="_blank" rel="noopener" href="https://drive.google.com/open?id=1O1EyjchaeaDFpHJqUjAe4MSaky-sfz96"><strong>cric_objects.zip</strong></a>
+                        and <a target="_blank" rel="noopener" href="https://drive.google.com/open?id=1IN4r7CmDMN36nFb8tcKEq8-OMmUBzsme"><strong>cric_objects.z01</strong></a>.
+                        Place these two files in one folder and unzip cric_objects.zip to get cric_objects.h5. The
+                        structure of cric_objects.h5 is: </p>
+                      <div class="code-wrapper">
+                        <pre><code class="hljs nim">cric_objects =
+{
+    <span class="hljs-string">"features"</span>:  <span class="hljs-built_in">float</span>, <span class="hljs-comment"># the faster r-cnn features (bottom-up features) of for up to 100 objects with ground truth bounding boxes. Size (number of images, 100, 2048).</span>
+    <span class="hljs-string">"object_id"</span>: <span class="hljs-built_in">int</span>,   <span class="hljs-comment"># the ids of objects in images. Size (number of images, 100)</span>
+}</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
+                      </div>
+                    </li>
+                    <li>
+                      <p>The basic information of the images are stored in <a target="_blank" rel="noopener" href="https://drive.google.com/open?id=1KaIAw9ipZhd3e-eOHd1-hx34DPXCtTgV"><strong>cric_objects_info.json</strong></a>.
+                        The structures of the file is as follows:</p>
+                      <div class="code-wrapper">
+                        <pre><code class="hljs perl">cric_objects_info =
+{
+    <span class="hljs-string">"image_id"</span>:  <span class="hljs-comment"># a string indicating the image id of Visual Genome</span>
+        {
+            <span class="hljs-string">"width"</span>:      <span class="hljs-keyword">int</span>,
+            <span class="hljs-string">"height"</span>:     <span class="hljs-keyword">int</span>,
+            <span class="hljs-string">"objectsNum"</span>: <span class="hljs-keyword">int</span>,
+            <span class="hljs-string">"index"</span>:      <span class="hljs-keyword">int</span>,  <span class="hljs-comment"># indicating the position of the image features in cric_object_features.h5</span>
+        }
+}</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
+                      </div>
+
+                    </li>
+                  </ul>
+                  <h2 id="Evaluation"><a href="http://localhost:4000/2021/02/24/hello-world/#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:4000/2021/02/24/hello-world/#Evaluation" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                  <p>The models are evaluate with two metrics, answer correctness and grounding correctness:</p>
+                  <div class="code-wrapper">
+                    <pre><code class="hljs ini"><span class="hljs-attr">final_score</span> = answer_correctness * grounding_correctness</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
+                  </div>
+
+                  
+                  <h2 id="Citation"><a href="http://localhost:4000/2021/02/24/hello-world/#Citation" class="headerlink" title="Citation"></a>Citation<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:4000/2021/02/24/hello-world/#Citation" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                  <div class="code-wrapper">
+                    <pre><code class="hljs mipsasm">@article{gao2019two,
+  title={From two graphs to n questions: A vqa dataset for compositional reasoning on vision <span class="hljs-keyword">and </span>commonsense},
+  author={Gao, <span class="hljs-keyword">Difei </span><span class="hljs-keyword">and </span>Wang, Ruiping <span class="hljs-keyword">and </span><span class="hljs-keyword">Shan, </span><span class="hljs-keyword">Shiguang </span><span class="hljs-keyword">and </span>Chen, Xilin},
+  <span class="hljs-keyword">journal={arXiv </span>preprint arXiv:<span class="hljs-number">1908</span>.<span class="hljs-number">02962</span>},
+  year={<span class="hljs-number">2019</span>}
+}</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
+                  </div>
+
+                  <h2 id="Contact"><a href="http://localhost:4000/2021/02/24/hello-world/#Contact" class="headerlink" title="Contact"></a>Contact<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:4000/2021/02/24/hello-world/#Contact" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                  <p>Reach us out at <a href="mailto:difei.gao@vipl.ict.ac.cn">difei.gao@vipl.ict.ac.cn</a> for any
+                    questions, suggestions and feedback.</p>
+
+                </div>
+                <hr>
+                <div>
+                  <div class="post-metas mb-3">
+
+
+                  </div>
+
+
+                  <div class="post-prevnext">
+                    <article class="post-prev col-6">
+
+
+                    </article>
+                    <article class="post-next col-6">
+
+
+                    </article>
+                  </div>
+
+                </div>
+
+
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn" style="padding-top: 0px;">
+          <div id="toc" style="visibility: visible;">
+            <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+            <div class="toc-body" id="toc-body"><ol class="tocbot-list "><li class="toc-list-item is-active-li"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC_%20A%20VQA%20Dataset%20for%20Compositional%20Reasoning%20on%20Vision%20and%20Commonsense%20-%20Hexo.html#Overview" class="tocbot-link node-name--H2  tocbot-active-link">Overview</a></li><li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC_%20A%20VQA%20Dataset%20for%20Compositional%20Reasoning%20on%20Vision%20and%20Commonsense%20-%20Hexo.html#Statistics" class="tocbot-link node-name--H2 ">Statistics</a></li><li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC_%20A%20VQA%20Dataset%20for%20Compositional%20Reasoning%20on%20Vision%20and%20Commonsense%20-%20Hexo.html#Annotations" class="tocbot-link node-name--H2 ">Annotations</a></li><li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC_%20A%20VQA%20Dataset%20for%20Compositional%20Reasoning%20on%20Vision%20and%20Commonsense%20-%20Hexo.html#Evaluation" class="tocbot-link node-name--H2 ">Evaluation</a></li><li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC_%20A%20VQA%20Dataset%20for%20Compositional%20Reasoning%20on%20Vision%20and%20Commonsense%20-%20Hexo.html#Citation" class="tocbot-link node-name--H2 ">Citation</a></li><li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC_%20A%20VQA%20Dataset%20for%20Compositional%20Reasoning%20on%20Vision%20and%20Commonsense%20-%20Hexo.html#Contact" class="tocbot-link node-name--H2 ">Contact</a></li></ol></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Custom -->
+
+
+
+
+
+    <a id="scroll-top-button" href="http://localhost:4000/2021/02/24/hello-world/#" role="button" style="bottom: -60px; right: 20.2857px;">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+            <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+              <input type="text" id="local-search-input" class="form-control validate">
+              <label data-error="x" data-success="v" for="local-search-input">keyword</label>
+            </div>
+            <div class="list-group" id="local-search-result"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+    <div class="footer-content">
+      Built and maintained by Difei Gao
+    </div>
+
+
+
+
+
+  </footer>
+
+  <!-- SCRIPTS -->
+
+  <script src="./CRIC_files/nprogress.min.js.下载"></script>
+  <link rel="stylesheet" href="./CRIC_files/nprogress.min.css">
+
+  <script>
+    NProgress.configure({ "showSpinner": false, "trickleSpeed": 100 })
+    NProgress.start()
+    window.addEventListener('load', function () {
+      NProgress.done();
+    })
+  </script>
+
+
+  <script src="./CRIC_files/jquery.min.js.下载"></script>
+  <script src="./CRIC_files/bootstrap.min.js.下载"></script>
+  <script src="./CRIC_files/debouncer.js.下载"></script>
+  <script src="./CRIC_files/events.js.下载"></script>
+  <script src="./CRIC_files/plugins.js.下载"></script>
+
+  <!-- Plugins -->
+
+
+
+  <script src="./CRIC_files/lazyload.js.下载"></script>
+
+
+
+
+
+
+
+
+  <script src="./CRIC_files/tocbot.min.js.下载"></script>
+
+
+
+  <!-- <script src="./CRIC_files/jquery.fancybox.min.js.下载"></script> -->
+
+
+
+  <script src="./CRIC_files/anchor.min.js.下载"></script>
+
+
+
+  <script defer="" src="./CRIC_files/clipboard.min.js.下载"></script>
+
+
+
+
+
+
+  <script src="./CRIC_files/typed.min.js.下载"></script>
+  <script>
+      (function (window, document) {
+        var typing = Fluid.plugins.typing;
+        var title = document.getElementById('subtitle').title;
+
+        typing(title)
+
+      })(window, document);
+  </script><style type="text/css" data-typed-js-css="true">
+        .typed-cursor{
+          opacity: 1;
+        }
+        .typed-cursor.typed-cursor--blink{
+          animation: typedjsBlink 0.7s infinite;
+          -webkit-animation: typedjsBlink 0.7s infinite;
+                  animation: typedjsBlink 0.7s infinite;
+        }
+        @keyframes typedjsBlink{
+          50% { opacity: 0.0; }
+        }
+        @-webkit-keyframes typedjsBlink{
+          0% { opacity: 1; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1; }
+        }
+      </style>
+  <style type="text/css" data-typed-js-css="true">
+    .typed-cursor {
+      opacity: 1;
+    }
+
+    .typed-cursor.typed-cursor--blink {
+      animation: typedjsBlink 0.7s infinite;
+      -webkit-animation: typedjsBlink 0.7s infinite;
+      animation: typedjsBlink 0.7s infinite;
+    }
+
+    @keyframes typedjsBlink {
+      50% {
+        opacity: 0.0;
+      }
+    }
+
+    @-webkit-keyframes typedjsBlink {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+
+
+
+  <script src="./CRIC_files/local-search.js.下载"></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- 主题的启动项 保持在最底部 -->
+  <script src="./CRIC_files/boot.js.下载"></script>
+
+
+
+
+
+
+
+</body></html>
